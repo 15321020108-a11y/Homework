@@ -16,7 +16,8 @@ except ImportError:
     WordCloud = None
 
 
-DATA_PATH = Path("p2_data.txt")
+BASE_DIR = Path(__file__).resolve().parent
+DATA_PATH = BASE_DIR / "p2_data.txt"
 TOP_K = 10
 MIN_WORD_LENGTH = 2
 MIN_FREQ_FOR_WORDCLOUD = 2
@@ -145,8 +146,9 @@ def save_wordcloud(counter: Counter[str], output_name: str) -> None:
         background_color="white",
         font_path=font_path,
     ).generate_from_frequencies(filtered_counter)
-    wordcloud.to_file(output_name)
-    print(f"词云已保存：{Path(output_name).resolve()}")
+    output_path = BASE_DIR / output_name
+    wordcloud.to_file(str(output_path))
+    print(f"词云已保存：{output_path}")
     print()
 
 
